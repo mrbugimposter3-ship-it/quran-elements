@@ -1,0 +1,103 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>عناصر التلاوة</title><meta name="theme-color" content="#062a1f"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes">
+<style>
+:root{--g:#0b3d2e;--g2:#14684a;--l:#2ecc71;--t:#e8fff3;--d:#062a1f}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--g);color:var(--t);font-family:system-ui,"Segoe UI",Tahoma,sans-serif}
+header{position:sticky;top:0;background:var(--d);display:flex;flex-wrap:wrap;gap:6px;padding:8px;padding-top:max(8px,env(safe-area-inset-top));align-items:center;z-index:3}
+header b{flex:1;font-size:22px;color:var(--l)}
+#v{max-width:1100px;margin:0 auto;padding:0 8px calc(20px + env(safe-area-inset-bottom))}
+button,input,select{background:var(--g2);color:var(--t);border:1px solid #2a8c66;border-radius:10px;padding:8px 12px;font-size:16px;font-family:inherit;min-height:42px}
+button{cursor:pointer}button.on{background:var(--l);color:#000}
+.st{font-size:13px;opacity:.85}
+.en{direction:ltr;unicode-bidi:isolate;font-size:10px;opacity:.6}
+h2{color:var(--l);font-size:19px;margin:14px 4px 6px}
+.box{background:#0f4a37;border-radius:12px;padding:10px;margin:8px 0}
+.note{font-size:13px;opacity:.85;line-height:1.7}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.top{display:flex;flex-wrap:wrap;gap:8px}
+.tc{background:var(--g2);border:2px solid var(--l);border-radius:12px;padding:8px 12px;text-align:center;min-width:110px}
+.tc .sy{font-size:30px;font-weight:700;color:#fff;direction:ltr}
+.tc .ar{font-size:17px}.tc .c{color:var(--l);font-size:14px}
+.ptw{overflow-x:auto;direction:ltr}
+.pt{display:grid;grid-template-columns:repeat(18,minmax(34px,1fr));gap:2px;min-width:640px;direction:ltr}
+.el{position:relative;border-radius:5px;background:#0a3528;padding:2px;text-align:center;font-size:9px;line-height:1.2;cursor:pointer;min-height:44px;border:1px solid #124d3a}
+.el .z{font-size:8px;opacity:.7;text-align:left}.el .s{font-size:14px;font-weight:700}.el .a{font-size:8px;direction:rtl;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.el .n{position:absolute;top:1px;right:2px;font-size:9px;font-weight:700;color:#000;background:var(--l);border-radius:6px;padding:0 3px}
+.el.mode{outline:3px solid #ffd54a;outline-offset:-1px}
+.el.sel{box-shadow:0 0 0 2px #fff inset}
+.gap{grid-column:1/-1;height:6px}
+.leg{display:flex;gap:8px;align-items:center;font-size:12px;margin:6px 0;flex-wrap:wrap}
+.sw{display:inline-block;width:18px;height:12px;border-radius:3px;vertical-align:middle}
+.prod{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:4px 0;padding:6px;background:#0a3528;border-radius:8px}
+.prod span{flex:1;min-width:150px}
+.prod a{color:#000;background:var(--l);text-decoration:none;border-radius:8px;padding:6px 10px;font-size:14px}
+.prod a.az{background:#ffd54a}
+.warn{color:#ffd54a}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:4px;border-bottom:1px solid #1b5e47;text-align:right}
+.err{background:#5c1f1a;padding:10px;border-radius:10px}
+</style></head><body>
+<header><b>⚛ عناصر التلاوة</b>
+<input type="date" id="day" aria-label="التاريخ"><button id="today">اليوم</button><button id="ref">⟳ تحديث</button>
+<span class="st" id="stat"></span></header>
+<div id="v">
+<div class="box note">يقرأ هذا التطبيق سجلّ «مسجّل القرآن» اليومي مباشرة من GitHub، ويحوّل كل ختم آية إلى عنصر كيميائي في الجدول الدوري، ثم يعرض العناصر الأكثر تكرارًا (المنوال) في ذلك اليوم. يتحدّث تلقائيًا كل ١٠ دقائق.
+<br>• <b>تحويل السورة:</b> العدد الذري = ((رقم السورة − ١) mod ١١٨) + ١. وبما أن أكبر رقم سورة هو ١١٤، فالعدد الذري = رقم السورة نفسه (مثلًا: سورة الحديد ٥٧ ← اللانثانوم 57).
+<br>• <b>تحويل الآية:</b> العدد الذري = رقم الآية mod ١١٨، والصفر يصبح ١١٨.</div>
+<div class="tabs" id="tabs"><button data-m="s" class="on">حسب رقم السورة</button><button data-m="a">حسب رقم الآية</button></div>
+<div id="out"></div>
+</div>
+<script src="elements.js"></script>
+<script>
+const REPO='mrbugimposter3-ship-it/quran-recorder',RAW='https://raw.githubusercontent.com/'+REPO+'/main/logs/';
+const E={};ELEMENTS.forEach(r=>E[r[0]]={z:r[0],s:r[1],en:r[2],ar:r[3],p:r[4],g:r[5],k:r[6],pr:r[7]});
+const $=id=>document.getElementById(id),AN=n=>Number(n).toLocaleString('ar-EG');
+const nyToday=()=>new Intl.DateTimeFormat('en-CA',{timeZone:'America/New_York',year:'numeric',month:'2-digit',day:'2-digit'}).format(new Date());
+let mode='s',stamps=[],sel=null,lastDate=null,followToday=true;
+const zS=s=>((s-1)%118)+1, zA=a=>(a%118)||118;
+function counts(){const c={};stamps.forEach(e=>{const z=mode==='s'?zS(e.surah):zA(e.ayah);c[z]=(c[z]||0)+1});return c}
+function modes(c){const m=Math.max(0,...Object.values(c));return m?Object.keys(c).filter(z=>c[z]===m).map(Number).sort((a,b)=>a-b):[]}
+function prodHTML(z){const e=E[z];
+ if(e.k==='rad')return '<div class="prod warn">☢ عنصر مشعّ أو مُصنَّع مخبريًا — لا توجد منتجات استهلاكية منه.</div>';
+ if(e.k==='tox')return '<div class="prod warn">⚠ عنصر سامّ — لا نقترح شراء منتجات منه.</div>';
+ if(!e.pr.length)return '<div class="prod">لا توجد منتجات يومية شائعة مصنوعة من هذا العنصر (يُستخدم غالبًا داخل الإلكترونيات أو الصناعة).</div>';
+ return e.pr.map(([ar,t])=>{const q=encodeURIComponent(t);return `<div class="prod"><span>${ar} <span class="en">${t}</span></span><a target="_blank" rel="noopener" href="https://www.walmart.com/search?q=${q}">Walmart</a><a class="az" target="_blank" rel="noopener" href="https://www.amazon.com/s?k=${q}">Amazon</a></div>`}).join('')}
+function card(z,n){const e=E[z];return `<div class="tc"><div class="sy">${e.s}</div><div class="ar">${e.ar}</div><div class="en">${e.en} · ${z}</div><div class="c">${AN(n)} مرة</div></div>`}
+function render(){
+ const c=counts(),md=modes(c),max=Math.max(1,...Object.values(c));let h='';
+ if(!stamps.length){$('out').innerHTML='<div class="box">لا توجد أختام آيات في هذا اليوم.</div>';return}
+ h+=`<h2>العنصر الأكثر تكرارًا${md.length>1?' (تعادل بين '+AN(md.length)+' عناصر)':''}</h2><div class="top">${md.map(z=>card(z,c[z])).join('')}</div>`;
+ h+=`<h2>منتجات للعناصر الأعلى</h2>`+md.map(z=>`<div class="box"><b>${E[z].ar}</b> <span class="en">${E[z].en} (${E[z].s})</span>${prodHTML(z)}</div>`).join('');
+ h+=`<h2>الجدول الدوري</h2><div class="leg"><span><span class="sw" style="background:#0a3528"></span> صفر</span><span><span class="sw" style="background:#2ecc71"></span> أعلى عدد</span><span><span class="sw" style="outline:2px solid #ffd54a"></span> المنوال</span><span>اضغط على أي عنصر للتفاصيل</span></div><div class="ptw"><div class="pt">`;
+ for(let p=1;p<=10;p++){if(p===8){h+='<div class="gap"></div>';continue}
+  for(let g=1;g<=18;g++){const e=Object.values(E).find(x=>x.p===p&&x.g===g);
+   if(!e){h+=(p===6||p===7)&&g===3?`<div class="el" style="opacity:.5;cursor:default"><div class="s">${p===6?'57–71':'89–103'}</div></div>`:'<div></div>';continue}
+   const n=c[e.z]||0,a=n?0.25+0.75*n/max:0,bg=n?`rgba(46,204,113,${a})`:'';
+   h+=`<div class="el${md.includes(e.z)?' mode':''}${sel===e.z?' sel':''}" data-z="${e.z}" style="${bg?'background:'+bg+';color:'+(a>.6?'#000':'#fff'):''}" title="${e.en}"><div class="z">${e.z}</div><div class="s">${e.s}</div><div class="a">${e.ar}</div>${n?`<span class="n">${n}</span>`:''}</div>`}}
+ h+='</div></div><div id="det"></div>';
+ const sorted=Object.keys(c).map(Number).sort((a,b)=>c[b]-c[a]||a-b);
+ h+=`<h2>كل العناصر في هذا اليوم</h2><div class="box"><table><tr><th>العنصر</th><th>العدد</th><th>الآيات</th></tr>${sorted.map(z=>`<tr><td>${E[z].ar} <span class="en">${E[z].s}</span></td><td>${AN(c[z])}</td><td style="direction:ltr;text-align:right;font-size:12px">${stamps.filter(e=>(mode==='s'?zS(e.surah):zA(e.ayah))===z).map(e=>e.surah+':'+e.ayah).join(' ')}</td></tr>`).join('')}</table></div>`;
+ $('out').innerHTML=h;
+ document.querySelectorAll('.el[data-z]').forEach(d=>d.onclick=()=>{sel=+d.dataset.z;render();$('det').scrollIntoView({behavior:'smooth',block:'nearest'})});
+ if(sel){const e=E[sel];$('det').innerHTML=`<div class="box"><b>${e.ar}</b> <span class="en">${e.en} (${e.s}) · Z=${e.z}</span> — ${AN(c[sel]||0)} مرة${prodHTML(sel)}</div>`}
+}
+async function load(){
+ const d=$('day').value;$('stat').textContent='جارٍ التحميل…';
+ try{const r=await fetch(RAW+d+'.json?t='+Date.now(),{cache:'no-store'});
+  if(r.status===404){stamps=[];$('out').innerHTML=`<div class="box">لا يوجد سجلّ بتاريخ ${d} بعد. سيظهر تلقائيًا عند رفعه.</div>`;$('stat').textContent='';return}
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  const j=await r.json();stamps=(j.entries||[]).filter(e=>e.type==='ayah-stamp'&&e.surah>=1&&e.ayah>=1);
+  if(d!==lastDate)sel=null;lastDate=d;
+  const t=new Date().toLocaleTimeString('ar-EG',{timeZone:'America/New_York',hour:'2-digit',minute:'2-digit'});
+  $('stat').textContent=`${AN(stamps.length)} ختم · آخر تحديث ${t} (نيويورك)`;render();
+ }catch(err){$('stat').textContent='';$('out').innerHTML=`<div class="err">تعذّر تحميل السجلّ: ${err.message}</div>`}}
+$('day').value=nyToday();$('day').max=nyToday();
+$('day').onchange=()=>{followToday=$('day').value===nyToday();load()};
+$('today').onclick=()=>{$('day').value=nyToday();followToday=true;load()};
+$('ref').onclick=load;
+$('tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;mode=b.dataset.m;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));render()};
+setInterval(()=>{if(followToday)$('day').value=nyToday();$('day').max=nyToday();load()},10*60*1000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&followToday&&$('day').value!==nyToday()){$('day').value=nyToday();load()}});
+load();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>
