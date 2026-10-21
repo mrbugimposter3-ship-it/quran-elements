@@ -36,6 +36,14 @@ h2{color:var(--l);font-size:19px;margin:14px 4px 6px}
 .warn{color:#ffd54a}
 table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:4px;border-bottom:1px solid #1b5e47;text-align:right}
 .err{background:#5c1f1a;padding:10px;border-radius:10px}
+.infaq{background:#0f4a37;border:1px solid #2a8c66;border-radius:12px;padding:10px;margin:18px 0 8px}
+.infaq-h{display:flex;align-items:center;gap:6px}.infaq-t{flex:1;color:var(--l);font-size:19px}.infaq-nav{display:flex;gap:6px}
+.infaq-b{padding:2px 14px;font-size:20px}
+.infaq-ar{display:block;font-family:"Amiri Quran",Amiri,"Noto Naskh Arabic","Traditional Arabic","Geeza Pro",serif;font-size:22px;line-height:2.1}
+.infaq-ref{display:block;color:var(--l);font-size:13px}
+.infaq-all summary{cursor:pointer;color:#a8f0c8;margin-top:6px;min-height:30px}.infaq-all p{border-top:1px solid #1b5e47;margin:6px 0;padding-top:6px}
+.infaq-src{font-size:11px;opacity:.6;margin-top:6px}
+.infaq-tools{display:block;margin:10px 0 0;padding:8px 10px;font-size:13px;opacity:.9;border:1px dashed #2a8c66;border-radius:10px}.infaq-tools a{color:var(--l);font-weight:700}
 </style></head><body>
 <header><b>⚛ عناصر التلاوة</b>
 <input type="date" id="day" aria-label="التاريخ"><button id="today">اليوم</button><button id="ref">⟳ تحديث</button>
@@ -46,8 +54,9 @@ table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:4px;borde
 <br>• <b>تحويل الآية:</b> العدد الذري = رقم الآية mod ١١٨، والصفر يصبح ١١٨.</div>
 <div class="tabs" id="tabs"><button data-m="s" class="on">حسب رقم السورة</button><button data-m="a">حسب رقم الآية</button></div>
 <div id="out"></div>
+<footer><section id="infaq"></section><p id="tools"></p></footer>
 </div>
-<script src="elements.js"></script>
+<script src="elements.js"></script><script src="infaq.js"></script>
 <script>
 const REPO='mrbugimposter3-ship-it/quran-recorder',RAW='https://raw.githubusercontent.com/'+REPO+'/main/logs/';
 const E={};ELEMENTS.forEach(r=>E[r[0]]={z:r[0],s:r[1],en:r[2],ar:r[3],p:r[4],g:r[5],k:r[6],pr:r[7]});
@@ -98,6 +107,7 @@ $('ref').onclick=load;
 $('tabs').onclick=e=>{const b=e.target.closest('button');if(!b)return;mode=b.dataset.m;document.querySelectorAll('#tabs button').forEach(x=>x.classList.toggle('on',x===b));render()};
 setInterval(()=>{if(followToday)$('day').value=nyToday();$('day').max=nyToday();load()},10*60*1000);
 document.addEventListener('visibilitychange',()=>{if(!document.hidden&&followToday&&$('day').value!==nyToday()){$('day').value=nyToday();load()}});
+infaqMount(document.getElementById('infaq'));infaqTools(document.getElementById('tools'));
 load();
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
 </script></body></html>
