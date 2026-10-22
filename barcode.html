@@ -1,0 +1,112 @@
+<!doctype html><html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>باركود ← آية · عناصر التلاوة</title><meta name="theme-color" content="#062a1f"><link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png">
+<style>
+:root{--g:#0b3d2e;--g2:#14684a;--l:#2ecc71;--t:#e8fff3;--d:#062a1f;--y:#ffd54a}
+*{box-sizing:border-box}body{margin:0;background:var(--g);color:var(--t);font-family:system-ui,"Segoe UI",Tahoma,sans-serif}
+header{position:sticky;top:0;background:var(--d);display:flex;flex-wrap:wrap;gap:6px;padding:8px;padding-top:max(8px,env(safe-area-inset-top));align-items:center;z-index:3}
+header b{flex:1;font-size:21px;color:var(--l)}header a{color:var(--l)}
+#v{max-width:1000px;margin:0 auto;padding:0 8px calc(24px + env(safe-area-inset-bottom))}
+button,input,select{background:var(--g2);color:var(--t);border:1px solid #2a8c66;border-radius:10px;padding:8px 12px;font-size:16px;font-family:inherit;min-height:42px}
+button{cursor:pointer}button.on{background:var(--l);color:#000}
+h2{color:var(--l);font-size:19px;margin:14px 4px 6px}
+.box{background:#0f4a37;border-radius:12px;padding:10px;margin:8px 0}.note{font-size:14px;line-height:1.8}
+.en{direction:ltr;unicode-bidi:isolate}.mono{font-family:ui-monospace,Menlo,Consolas,monospace;direction:ltr;unicode-bidi:isolate}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0}
+.row{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.q{font-family:"Amiri Quran",Amiri,"Noto Naskh Arabic","Traditional Arabic","Geeza Pro",serif;font-size:24px;line-height:2.2}
+.ok{color:var(--l)}.bad{color:#ff8a80}.warn{color:var(--y)}
+table{border-collapse:collapse;width:100%;font-size:14px}td,th{padding:4px;border-bottom:1px solid #1b5e47;text-align:right;vertical-align:top}
+.lt{font-size:18px;word-spacing:4px;white-space:nowrap}
+.lt .p{background:var(--y);color:#000;border-radius:4px;padding:0 2px}
+.clk{display:block;margin:0 auto;max-width:380px;width:100%}
+.pr{display:flex;gap:8px;flex-wrap:wrap;padding:6px;background:#0a3528;border-radius:8px;margin:4px 0;cursor:pointer}
+.pr .nm{flex:1;min-width:160px}.tag{font-size:11px;background:#1b5e47;border-radius:6px;padding:1px 6px}
+video{width:100%;max-width:420px;border-radius:10px;display:block;margin:6px auto}
+small{opacity:.75}
+</style></head><body>
+<header><b>▦ باركود ← آية</b><a href="./">⚛ العناصر</a></header>
+<div id="v">
+<div class="box note" id="rule">
+<b>القاعدة (ثابتة، بلا عشوائية):</b>
+<br>١) نأخذ حروف الآية بالترتيب من النص العثماني (حروف الرسم فقط، بلا حركات)، ونكمل في الآيات التالية إذا كانت الآية أقصر من ١٠٨ حروف.
+<br>٢) نقسم الحروف إلى ١٢ كتلة، كل كتلة ٩ حروف: الساعة ١ = الحروف ١–٩، الساعة ٢ = ١٠–١٨، الساعة ٣ = ١٩–٢٧، الساعة ٤ = ٢٨–٣٦، الساعة ٥ = ٣٧–٤٥ … الساعة ١٢ = ١٠٠–١٠٨.
+<br>٣) لكل حرف رقم من ١ إلى ٩ = أول رقم في قيمته بحساب الجُمَّل (ترتيب أبجد ١–٢٧ mod ٢٧، ثم mod ٩؛ فالألف ١ والقاف ١٠٠ ← ١، والغين ١٠٠٠ = ٢٨ ≡ ١ mod ٢٧).
+<br>٤) رقم الكتلة = مجموع أرقام حروفها التسعة mod ٩ (الصفر يصبح ٩).
+<br>٥) الرقم رقم ‎h‎ من الباركود (١٢ رقمًا ⇐ ١٢ ساعة) يُختصر mod ٩ (الصفر ⇐ ٩)، ويُقارن برقم الكتلة في الساعة نفسها ⇐ «تطابق الكتلة».
+<br>٦) ويُستعمل الرقم نفسه موضعًا داخل الكتلة (١–٩): إذا كان رقم الحرف في ذلك الموضع يساوي رقم الباركود ⇐ «تطابق الموضع».
+<br>٧) نختبر كل الآيات الـ٦٢٣٦ (البداية من أول حرف في كل آية). الأفضل: أكثر تطابقات للكتل، ثم أكثر تطابقات للمواضع، ثم الآية الأسبق في المصحف. فلكل باركود آية واحدة بالضبط.
+<div id="ex"></div>
+</div>
+<div class="tabs" id="tabs"><button data-t="look" class="on">بحث / مسح</button><button data-t="browse">تصفّح المنتجات</button></div>
+<section id="look">
+<div class="row"><input id="code" inputmode="numeric" placeholder="باركود من ١٢ رقمًا (UPC-A)" class="mono" style="flex:1;min-width:200px"><button id="go">ابحث</button><button id="scan">📷 مسح</button></div>
+<video id="cam" playsinline muted hidden></video><div id="camst" class="note"></div>
+<div id="res"></div>
+</section>
+<section id="browse" hidden>
+<div class="row"><select id="fs"><option value="">كل المتاجر</option><option>Walmart</option><option>Amazon</option><option>Costco</option></select>
+<select id="fc"><option value="">الولايات المتحدة وكندا</option><option value="US">الولايات المتحدة</option><option value="CA">كندا</option></select>
+<select id="fo"><option value="score">الأعلى تطابقًا</option><option value="ayah">ترتيب المصحف</option><option value="code">رقم الباركود</option></select>
+<input id="fq" placeholder="اسم المنتج أو الماركة أو سورة:آية" style="flex:1;min-width:160px"></div>
+<div id="bst" class="note"></div><div id="list"></div><div class="row"><button id="more" hidden>المزيد</button></div>
+</section>
+<div class="box note"><small>بيانات المنتجات: <a class="ok" href="https://world.openfoodfacts.org" target="_blank" rel="noopener">Open Food Facts</a> — رخصة ODbL (قاعدة البيانات) و DbCL (المحتوى). المنتجات الموسومة في الولايات المتحدة أو كندا بمتجر Walmart أو Amazon أو Costco (ومنها ماركة Kirkland Signature). أسماء المنتجات فقط، بلا روابط شراء. وسم المتجر يضيفه متطوعو Open Food Facts وقد يكون ناقصًا أو قديمًا.
+<br>النص القرآني: الرسم العثماني (quran-uthmani) من api.alquran.cloud كما في بقية التطبيق، بلا تعديل. التطابق رياضي فقط ولا يحمل أي معنى تفسيري.</small><span id="cnt"></span></div>
+</div>
+<script src="barcode-ayah.js"></script>
+<script>
+const $=id=>document.getElementById(id),AN=n=>Number(n).toLocaleString('ar-EG'),B=BarcodeAyah;
+let D=null,PROD=null,PIDX=null;
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+async function data(){if(!D){D=await (await fetch('data/letters.json')).json();D.R=[];D.N.forEach((n,i)=>{for(let a=1;a<=D.C[i];a++)D.R.push([i+1,a])})}return D}
+async function prods(){if(PROD)return PROD;PIDX=await (await fetch('data/products/index.json')).json();
+ const ds=Object.keys(PIDX.shards);const parts=await Promise.all(ds.map(d=>fetch('data/products/p'+d+'.json').then(r=>r.json())));
+ PROD=parts.flat();PROD.byCode={};PROD.forEach(p=>PROD.byCode[p[0]]=p);return PROD}
+const ref=k=>{const [s,a]=D.R[k];return {s,a,t:`${D.N[s-1]} ${AN(s)}:${AN(a)}`,e:s+':'+a}};
+const TX={};async function ayahText(s,a){const k=s+':'+a;if(TX[k])return TX[k];
+ try{const j=await (await fetch(`https://api.alquran.cloud/v1/ayah/${k}/quran-uthmani`)).json();let t=j.data.text.replace(/^\ufeff/,'');
+  const bas='بِسْمِ ٱللَّهِ ٱلرَّحْمَٰنِ ٱلرَّحِيمِ ';if(s!==1&&a===1&&t.startsWith(bas))t=t.slice(bas.length);return TX[k]=t}catch(e){return null}}
+function clock(sc){const cx=190,cy=190,R=150;let g=`<svg class="clk" viewBox="0 0 380 380"><circle cx="${cx}" cy="${cy}" r="${R+28}" fill="#0a3528" stroke="#2a8c66"/>`;
+ for(const h of sc.hours){const an=(h.h%12)*Math.PI/6-Math.PI/2,x=cx+R*Math.cos(an),y=cy+R*Math.sin(an),xi=cx+(R-58)*Math.cos(an),yi=cy+(R-58)*Math.sin(an);
+  const col=h.mb&&h.mp?'#ffd54a':h.mb?'#2ecc71':h.mp?'#7fd3ff':'#1b5e47';
+  g+=`<line x1="${cx}" y1="${cy}" x2="${xi}" y2="${yi}" stroke="${col}" stroke-width="${h.mb?3:1}"/><circle cx="${x}" cy="${y}" r="24" fill="${col}"/><text x="${x}" y="${y-4}" text-anchor="middle" font-size="16" font-weight="700" fill="${h.mb||h.mp?'#000':'#e8fff3'}">${h.raw}</text><text x="${x}" y="${y+12}" text-anchor="middle" font-size="9" fill="${h.mb||h.mp?'#000':'#e8fff3'}">${h.from}–${h.to}</text><text x="${xi}" y="${yi+6}" text-anchor="middle" font-size="16" fill="#e8fff3">${h.pl}</text>`}
+ return g+`<text x="${cx}" y="${cy+6}" text-anchor="middle" font-size="22" fill="#2ecc71" font-weight="700">${sc.blocks}/12</text></svg><div class="note" style="text-align:center"><small>الدائرة = الساعة ورقم الباركود ومدى الحروف · الحرف الداخلي = الحرف في الموضع · <span class="ok">أخضر</span> تطابق الكتلة · <span style="color:#7fd3ff">أزرق</span> تطابق الموضع · <span class="warn">ذهبي</span> كلاهما</small></div>`}
+function table(sc){return `<table><tr><th>الساعة</th><th>رقم الباركود (mod ٩)</th><th>الحروف</th><th>مجموع أرقامها ← mod ٩</th><th>الكتلة</th><th>حرف الموضع</th><th>الموضع</th></tr>`+
+ sc.hours.map(h=>`<tr><td>${AN(h.h)}<br><small>${AN(h.from)}–${AN(h.to)}</small></td><td class="mono">${h.raw} → ${h.d}</td><td class="lt">${[...h.letters].map((c,i)=>i===h.d-1?`<span class="p">${c}</span>`:c).join(' ')}</td><td class="mono">${h.bsum} → ${h.bd}</td><td>${h.mb?'<span class="ok">✓</span>':'✗'}</td><td>${h.pl} = ${h.pd} <small>(الحرف رقم ${AN(h.pos)})</small></td><td>${h.mp?'<span style="color:#7fd3ff">✓</span>':'✗'}</td></tr>`).join('')+`</table>`}
+async function lookup(raw){await data();const n=B.normalize(raw),o=$('res');
+ if(!n.ok){o.innerHTML=`<div class="box bad">${n.why==='len'?'يجب أن يكون الباركود ١٢ رقمًا (UPC-A) أو ١٣ رقمًا يبدأ بصفر (EAN-13).':'رقم التحقق غير صحيح: الرقم الأخير يجب أن يكون '+n.want+'.'}</div>`;return}
+ const c=n.s;location.hash=c;o.innerHTML='<div class="box">جارٍ الحساب…</div>';await new Promise(r=>setTimeout(r,10));
+ const top=B.best(D,c,5),k=top[0][2],r=ref(k),sc=B.scoreWin(B.windowAt(D,k),c);
+ let p=null;try{await prods();p=PROD.byCode[c]}catch(e){}
+ const ws=D.S[k],end=ws+108,last=D.S.findIndex(x=>x>=end);const span=last<0||last-1===k?'':` <small>(تمتد الحروف ١٠٨ إلى ${ref(Math.max(k,(last<0?D.S.length:last)-1)).t})</small>`;
+ o.innerHTML=`<div class="box">${p?`<b>${esc(p[1]||'—')}</b> <span class="en">${esc(p[2])}</span> <span class="tag">${p[3]}</span> <span class="tag">${p[4]}</span>${p[8]?' <span class="tag">Kirkland</span>':''}<br>`:'<small>الباركود ليس ضمن قائمة المنتجات، لكن القاعدة تعمل على أي باركود.</small><br>'}
+ <span class="mono">${c.slice(0,1)} ${c.slice(1,6)} ${c.slice(6,11)} ${c.slice(11)}</span> <span class="ok">✓ رقم التحقق</span>
+ <h2>الآية: ${r.t}</h2><div class="note">تطابق الكتل ${AN(sc.blocks)}/١٢ · تطابق المواضع ${AN(sc.ptr)}/١٢${span}</div>
+ <div class="q" id="aq">…</div>${clock(sc)}${table(sc)}
+ <h2>الترتيب (أفضل ٥)</h2><table><tr><th>#</th><th>الآية</th><th>الكتل</th><th>المواضع</th></tr>${top.map((t,i)=>`<tr><td>${AN(i+1)}</td><td>${ref(t[2]).t}</td><td>${AN(t[0])}</td><td>${AN(t[1])}</td></tr>`).join('')}</table></div>`;
+ const t=await ayahText(r.s,r.a);$('aq').textContent=t?t+' ﴿'+AN(r.a)+'﴾':'(تعذّر تحميل النص — يلزم اتصال بالإنترنت)'}
+async function example(){await data();const c='064100778979',[t]=B.best(D,c,1),r=ref(t[2]),sc=B.scoreWin(B.windowAt(D,t[2]),c),h=sc.hours[11];
+ $('ex').innerHTML=`<br><b>مثال محسوب (يتجاوز الحرف ١٠٠):</b> الباركود <span class="mono">${c}</span> ← ${r.t}. في الساعة ١٢ (الحروف ١٠٠–١٠٨): الحروف <span class="lt">${[...h.letters].join(' ')}</span>، مجموع أرقامها ${AN(h.bsum)} ← mod ٩ = ${AN(h.bd)}؛ رقم الباركود الأخير ${AN(h.raw)} ← ${AN(h.d)} ⇒ ${h.mb?'تطابق كتلة ✓':'لا تطابق ✗'}. والموضع ${AN(h.d)} في الكتلة هو الحرف رقم ${AN(h.pos)} «${h.pl}» = ${AN(h.pd)} ⇒ ${h.mp?'تطابق موضع ✓':'لا تطابق ✗'}. المجموع: ${AN(sc.blocks)}/١٢ كتل و${AN(sc.ptr)}/١٢ مواضع. <a class="ok" href="#${c}" onclick="setTimeout(()=>lookup('${c}'),0)">افتحه</a>`}
+let LIST=[],shown=0;
+async function browse(){await data();await prods();$('cnt').innerHTML=` <small>· ${AN(PIDX.total)} منتجًا (Walmart ${AN(PIDX.byStore.Walmart||0)} · Amazon ${AN(PIDX.byStore.Amazon||0)} · Costco ${AN(PIDX.byStore.Costco||0)}) · تحديث ${PIDX.built.slice(0,10)}</small>`;
+ const s=$('fs').value,c=$('fc').value,q=$('fq').value.trim().toLowerCase(),o=$('fo').value;
+ LIST=PROD.filter(p=>(!s||p[3].includes(s))&&(!c||p[4].includes(c))&&(!q||(p[1]+' '+p[2]).toLowerCase().includes(q)||ref(p[5]).e===q||p[0].includes(q)));
+ LIST.sort(o==='score'?(a,b)=>b[6]-a[6]||b[7]-a[7]||a[5]-b[5]:o==='ayah'?(a,b)=>a[5]-b[5]||a[0].localeCompare(b[0]):(a,b)=>a[0].localeCompare(b[0]));
+ shown=0;$('list').innerHTML='';$('bst').textContent=AN(LIST.length)+' منتج';more()}
+function more(){const h=LIST.slice(shown,shown+60).map(p=>`<div class="pr" data-c="${p[0]}"><span class="nm">${esc(p[1]||'—')} <small class="en">${esc(p[2])}</small><br><span class="mono" style="font-size:12px">${p[0]}</span> <span class="tag">${p[3]}</span> <span class="tag">${p[4]}</span></span><span>${ref(p[5]).t}<br><small>كتل ${AN(p[6])}/١٢ · مواضع ${AN(p[7])}/١٢</small></span></div>`).join('');
+ $('list').insertAdjacentHTML('beforeend',h);shown+=60;$('more').hidden=shown>=LIST.length}
+$('list').onclick=e=>{const d=e.target.closest('.pr');if(!d)return;tab('look');$('code').value=d.dataset.c;lookup(d.dataset.c);scrollTo(0,0)};
+$('more').onclick=more;['fs','fc','fo'].forEach(i=>$(i).onchange=browse);let tq;$('fq').oninput=()=>{clearTimeout(tq);tq=setTimeout(browse,250)};
+function tab(t){document.querySelectorAll('#tabs button').forEach(b=>b.classList.toggle('on',b.dataset.t===t));$('look').hidden=t!=='look';$('browse').hidden=t!=='browse';if(t==='browse'&&!LIST.length)browse()}
+$('tabs').onclick=e=>{const b=e.target.closest('button');if(b)tab(b.dataset.t)};
+$('go').onclick=()=>lookup($('code').value);$('code').onkeydown=e=>{if(e.key==='Enter')lookup($('code').value)};
+let stream=null;
+$('scan').onclick=async()=>{const v=$('cam');if(stream){stream.getTracks().forEach(t=>t.stop());stream=null;v.hidden=true;$('camst').textContent='';return}
+ if(!('BarcodeDetector' in window)){$('camst').innerHTML='<span class="warn">المسح بالكاميرا غير مدعوم في هذا المتصفح (يعمل في Chrome على أندرويد). اكتب الرقم المطبوع تحت الباركود.</span>';return}
+ try{const det=new BarcodeDetector({formats:['upc_a','ean_13','upc_e']});stream=await navigator.mediaDevices.getUserMedia({video:{facingMode:'environment'}});v.srcObject=stream;v.hidden=false;await v.play();$('camst').textContent='وجّه الكاميرا نحو الباركود…';
+  const loop=async()=>{if(!stream)return;try{const r=await det.detect(v);if(r.length){let x=r[0].rawValue;if(r[0].format==='upc_e'){$('camst').textContent='باركود UPC-E قصير: اكتب الرقم الكامل.';}else{$('code').value=x;$('scan').click();lookup(x);return}}}catch(e){}requestAnimationFrame(loop)};loop()}
+ catch(e){$('camst').innerHTML='<span class="bad">تعذّر فتح الكاميرا: '+esc(e.message)+'</span>'}};
+example();prods().then(()=>$('cnt').innerHTML=` <small>· ${AN(PIDX.total)} منتجًا</small>`).catch(()=>{});
+if(location.hash==='#browse')tab('browse');else if(/^#\d{12,13}$/.test(location.hash)){$('code').value=location.hash.slice(1);lookup(location.hash.slice(1))}
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js');
+</script></body></html>

@@ -1,0 +1,43 @@
+{
+ "total": 7795,
+ "byStore": {
+  "Costco": 2239,
+  "Walmart": 5433,
+  "Amazon": 142
+ },
+ "byCountry": {
+  "CA": 2344,
+  "US": 5525
+ },
+ "byStoreCountry": {
+  "Costco CA": 762,
+  "Walmart CA": 1586,
+  "Walmart US": 3901,
+  "Costco US": 1500,
+  "Amazon US": 137,
+  "Amazon CA": 5
+ },
+ "kirkland": 1690,
+ "scores": {
+  "5": 26,
+  "6": 4451,
+  "7": 3038,
+  "8": 266,
+  "9": 13,
+  "10": 1
+ },
+ "shards": {
+  "0": 5226,
+  "1": 174,
+  "2": 635,
+  "3": 7,
+  "4": 4,
+  "5": 1,
+  "6": 1255,
+  "7": 159,
+  "8": 324,
+  "9": 10
+ },
+ "built": "2026-10-22T14:27:41.012Z",
+ "source": "Open Food Facts (search.openfoodfacts.org), ODbL"
+}
